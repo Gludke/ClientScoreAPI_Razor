@@ -1,0 +1,99 @@
+﻿@model ClientScore.App.Mvc.Models.ClienteRegisterViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+
+<h2 class="mb-4">Cadastrar Cliente</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" id="alert-validation">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<form asp-action="Create" method="post" class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">Nome*</label>
+        <input asp-for="Nome" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Data de Nascimento*</label>
+        <input asp-for="DataNascimento" type="date" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">CPF*</label>
+        <input asp-for="CPF" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Email*</label>
+        <input asp-for="Email" type="email" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Rendimento Anual*</label>
+        <input asp-for="RendimentoAnual" type="number" class="form-control" step="0.01" />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">DDD*</label>
+        <input asp-for="DDD" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Telefone*</label>
+        <input asp-for="Telefone" class="form-control" />
+    </div>
+
+    <h5 class="mt-4">Endereço</h5>
+
+    <div class="col-md-6">
+        <label class="form-label">Estado*</label>
+        <input asp-for="Endereco.Estado" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Cidade*</label>
+        <input asp-for="Endereco.Cidade" class="form-control" />
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Rua*</label>
+        <input asp-for="Endereco.Rua" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Número</label>
+        <input asp-for="Endereco.Numero" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Complemento</label>
+        <input asp-for="Endereco.Complemento" class="form-control" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">CEP*</label>
+        <input asp-for="Endereco.CEP" class="form-control" />
+    </div>
+
+    <div class="col-12 text-end mt-4">
+        <button type="submit" class="btn btn-success px-4">Salvar</button>
+        <a href="@Url.Action("Index", "Cliente")" class="btn btn-secondary ms-2">Cancelar</a>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <script>
+        //remove o alerta de erro em 5 seg
+        setTimeout(() => {
+            const alert = document.getElementById("alert-validation");
+            if (alert) {
+                alert.style.transition = "opacity 0.5s ease-out";
+                alert.style.opacity = 0;
+
+                setTimeout(() => {
+                    alert.remove();
+                }, 500);
+            }
+        }, 5000);
+    </script>
+}

@@ -1,0 +1,54 @@
+﻿.modern-card {
+    border-radius: 1rem;
+    background: #ffffff; /* branco */
+    box-shadow: 0 4px 12px rgba(133, 76, 172, 0.15);
+    padding: 2rem;
+}
+
+.modern-table th {
+    background-color: #7b2cbf;
+    color: white;
+    border: none;
+}
+
+.modern-table td {
+    background-color: #ffffff;
+    border-top: 1px solid #e0c8ff;
+}
+
+.modern-table td, .modern-table th {
+    border-radius: 0.5rem;
+    vertical-align: middle;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 1rem;
+}
+
+h2 {
+    color: #5a189a;
+    font-weight: bold;
+}
+
+.btn-client-add {
+    background-color: #f1e7ff; /* lavanda clara */
+    color: #5a189a;
+    border: 2px solid #cdb6f6;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.btn-client-add:hover {
+    background-color: #e0d1ff;
+    border-color: #b48cf2;
+    color: #4a0e8c;
+}
+
+

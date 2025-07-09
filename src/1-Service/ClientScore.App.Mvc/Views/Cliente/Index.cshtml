@@ -1,0 +1,65 @@
+﻿@model List<ClientScore.App.Mvc.Models.ClienteViewModel>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/cliente-lista.css" asp-append-version="true"/>
+}
+
+<div class="container mt-5">
+    <div class="modern-card">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="mb-0">Clientes Cadastrados</h2>
+            <a href="/Cliente/Create" class="btn-client-add">+ Adicionar</a>
+        </div>
+        <div class="table-wrapper">
+            <table class="table modern-table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Score</th>
+                        <th>Telefone</th>
+                        <th>Rendimento</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cliente in Model)
+                    {
+                        <tr>
+                            <td>@cliente.Nome</td>
+                            <td>@cliente.CPF</td>
+                            <td>@cliente.Email</td>
+                            <td class="score-client">@cliente.Score</td>
+                            <td>(@cliente.DDD)@cliente.Telefone</td>
+                            <td>@cliente.RendimentoAnual.ToString("C")</td>
+                            <td>@cliente.Endereco.Estado</td>
+                            <td>@cliente.Endereco.Cidade</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".score-client").forEach(el => {
+            const score = parseInt(el.textContent);
+
+            if (score <= 100) {
+                el.style.color = "#d90429"; //vermelho
+                el.style.fontWeight = "bold";
+            } else if (score <= 300) {
+                el.style.color = "#f2b134"; //amarelo
+                el.style.fontWeight = "bold";
+            } else {
+                el.style.color = "#2b9348"; //verde
+                el.style.fontWeight = "bold";
+            }
+        });
+    </script>
+}
