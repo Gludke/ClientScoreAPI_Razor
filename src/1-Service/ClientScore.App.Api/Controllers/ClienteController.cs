@@ -42,6 +42,33 @@ public class ClienteController : ControllerBase
         }
     }
 
+
+    [SwaggerOperation(Summary = "Obtém o score do cliente pelo seu CPF", Description = "Retorna um Score (int)'")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Obtido com sucesso", typeof(int))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Erro no processamento da requisição")]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "Erro interno no servidor")]
+    [HttpGet("get/score/{cpf}")]
+    public async Task<IActionResult> GetScoreByCpfAsync([FromRoute] string cpf)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _clienteService.GetScoreByCpfAsync(cpf);
+
+            if (result.Sucesso == false)
+                return BadRequest(result.MensagemErro);
+
+            return Ok(result.Resposta);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return BadRequest(ex.Message);
+        }
+    }
+
     [SwaggerOperation(Summary = "Cria um novo cliente")]
     [SwaggerResponse(StatusCodes.Status200OK, "Criado com sucesso")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Erro de validação ou falha no processamento da requisição")]

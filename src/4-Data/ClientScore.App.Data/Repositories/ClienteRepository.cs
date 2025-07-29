@@ -68,6 +68,53 @@ public class ClienteRepository : IClienteRepository
         return cliente;
     }
 
+    public async Task<int?> GetScoreByCpfAsync(string cpf)
+    {
+        const string query = @"
+        SELECT 
+            c.Score
+        FROM Cliente c
+        WHERE c.CPF = @Cpf";
+
+        using var connection = new SqlConnection(_connectionString);
+        using var command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@Cpf", cpf);
+
+        await connection.OpenAsync();
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows)
+            return null;
+
+        await reader.ReadAsync();
+
+        return reader.GetInt32(0);
+    }
+
+    public async Task<bool> ExistsEmailAsync(string email)
+    {
+        const string query = @"
+        SELECT 
+            *
+        FROM Cliente c
+        WHERE c.Email = @Email";
+
+        using var connection = new SqlConnection(_connectionString);
+        using var command = new SqlCommand(query, connection);
+
+        command.Parameters.AddWithValue("@Email", email);
+
+        await connection.OpenAsync();
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (!reader.HasRows)
+            return false;
+
+        return true;
+    }
+    
+
     public async Task<List<Cliente>> GetAllAsync()
     {
         const string query = @"

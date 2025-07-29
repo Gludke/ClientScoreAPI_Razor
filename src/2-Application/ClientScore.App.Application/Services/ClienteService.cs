@@ -46,6 +46,26 @@ public class ClienteService : IClienteService
         return response;
     }
 
+    public async Task<ResponseService<int?>> GetScoreByCpfAsync(string cpf)
+    {
+        var response = new ResponseService<int?>();
+
+        try
+        {
+            response.Resposta = await _clienteRepository.GetScoreByCpfAsync(cpf);
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Erro [ClienteService][GetScoreByCpfAsync] {ex.Message}");
+            response.Sucesso = false;
+            response.MensagemErro = ex.Message;
+        }
+
+        return response;
+    }
+
     public async Task<ResponseService<object>> InsertAsync(ClienteViewModel clienteModel)
     {
         var response = new ResponseService<object>();
